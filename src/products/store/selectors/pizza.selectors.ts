@@ -3,6 +3,7 @@ import { createSelector } from "@ngrx/store";
 import * as fromRoot from "../../../app/store";
 import * as fromFeature from "../reducers";
 import * as fromPizzas from "../reducers/pizzas.reducer";
+import * as fromToppings from "./toppings.selectors";
 import { Pizza } from "src/products/models/pizza.model";
 
 // const state = {
@@ -34,6 +35,19 @@ export const getSelectedPizza = createSelector(
   fromRoot.getRouterState,
   (entities, router): Pizza => {
     return router.state && entities[router.state.params.pizzaId];
+  }
+);
+
+export const getPizzaVisualise = createSelector(
+  getSelectedPizza,
+  fromToppings.getToppingEntities,
+  fromToppings.getSelectedToppings,
+  (pizza, toppingEntities, selectedToppings) => {
+    const toppings = selectedToppings.map(id => toppingEntities[id]);
+    return {
+      ...pizza,
+      toppings
+    };
   }
 );
 
