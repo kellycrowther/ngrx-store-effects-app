@@ -1,56 +1,17 @@
-import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
-import * as fromPizzas from './pizzas.reducer';
+import { ActionReducerMap, createFeatureSelector } from "@ngrx/store";
+import * as fromPizzas from "./pizzas.reducer";
 
 // selector ask for different properties on the state data object
 
 export interface ProductsState {
-    pizzas: fromPizzas.PizzaState
+  pizzas: fromPizzas.PizzaState;
 }
 
 export const reducers: ActionReducerMap<ProductsState> = {
-    pizzas: fromPizzas.reducer
-}
+  pizzas: fromPizzas.reducer
+};
 
 // this returns the 'products' object in the state object
-export const getProductsState = createFeatureSelector<ProductsState>('products');
-
-// const state = {
-        // featureModule in products.module
-//     products: {
-//         pizzas: {
-//             data: [],
-//             loaded: false,
-//             loading: false,
-//         }
-//     }
-// }
-
-// pizza state - this returns the pizzas inside the products slice of state
-// essentially getProductsState accesses state.products and then we access pizzas
-export const getPizzaState = createSelector(
-    getProductsState,
-    (state: ProductsState) => state.pizzas
+export const getProductsState = createFeatureSelector<ProductsState>(
+  "products"
 );
-
-// these access products.pizzas.data or .loaded or .loading
-export const getPizzasEntities = createSelector(
-    getPizzaState,
-    fromPizzas.getPizzasEntities
-)
-
-export const getAllPizzas = createSelector(
-    getPizzasEntities,
-    (entities) => {
-        return Object.keys(entities).map(id => entities[parseInt(id, 10)])
-    }
-)
-
-export const getPizzasLoaded = createSelector(
-    getPizzaState,
-    fromPizzas.getPizzasLoaded
-)
-
-export const getPizzasLoading = createSelector(
-    getPizzaState,
-    fromPizzas.getPizzasLoading
-)
