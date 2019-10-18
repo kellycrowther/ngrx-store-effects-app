@@ -33,6 +33,5 @@ export class ProductsComponent implements OnInit {
   ngOnInit() {
     this.store.dispatch(new fromStore.LoadToppings());
     this.pizzas$ = this.store.select(fromStore.getAllPizzas);
-    this.store.dispatch(new fromStore.LoadPizzas());
   }
 }
