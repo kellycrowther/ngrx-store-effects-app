@@ -6,7 +6,7 @@ import { Pizza } from "../../models/pizza.model";
 
 import { Topping } from "../../models/topping.model";
 import { Store } from "@ngrx/store";
-import { VisualiseToppings } from "../../store";
+import { VisualiseToppings, CreatePizza, UpdatePizza, RemovePizza } from "../../store";
 import { tap } from "rxjs/operators";
 
 @Component({
@@ -52,9 +52,15 @@ export class ProductItemComponent implements OnInit {
     this.store.dispatch(new VisualiseToppings(event));
   }
 
-  onCreate(event: Pizza) {}
+  onCreate(event: Pizza) {
+    this.store.dispatch(new CreatePizza(event));
+  }
 
-  onUpdate(event: Pizza) {}
+  onUpdate(event: Pizza) {
+    this.store.dispatch(new UpdatePizza(event));
+  }
 
-  onRemove(event: Pizza) {}
+  onRemove(event: Pizza) {
+    this.store.dispatch(new RemovePizza(event));
+  }
 }
